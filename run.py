@@ -34,20 +34,20 @@ CURRENT_DATE_FMTED = datetime.datetime.strftime(CURRENT_DATE, "%d/%m/%Y")
 
 def main_menu():
     """
-     Displays the main menu options for the user
-     to select in order to navigate the application.
-     """
-     clear_tmnl()
-     print("Oculist - Main menu\n")
-     print("Please select an option below.\n")
+    Displays the main menu options for the user
+    to select in order to navigate the application.
+    """
+    clear_tmnl()
+    print("Oculist - Main menu\n")
+    print("Please select an option below.\n")
 
-     print("(1) Book new appointment.")
-     print("(2) View today's appointments.")
-     print("(3) Search appointments.")
-     print("(4) Cancel appointment.")
-     print("(5) View application instructions.")
+    print("(1) Book new appointment.")
+    print("(2) View today's appointments.")
+    print("(3) Search appointments.")
+    print("(4) Cancel appointment.")
+    print("(5) View application instructions.")
 
-     while True:
+    while True:
          main_menu_ans = input("\n")
          if main_menu_ans not in ("1", "2", "3", "4", "5"):
              print("Invalid input.")
@@ -258,4 +258,34 @@ def get_time(data):
      else:
          return av_times
 
-         
+    
+def get_name(name_part):
+     """
+     Gets the name input from the user and validates that it contains
+     only letters, no spaces, and is at least 2 letters in length.
+     If the user inputs 'Exit', it returns them to the main menu.
+     Input is requested until it is valid.
+     """
+     clear_tmnl()
+     if name_part == ("f_name"):
+         name_prompt = "first name"
+     elif name_part == ("l_name"):
+         name_prompt = "surname"
+
+     print(f"Please enter the patient's {name_prompt}.")
+
+     while True:
+         pat_name = input("\n").capitalize()
+         if pat_name.isalpha() and len(pat_name) > 1:
+             break
+         else:
+             print("Invalid input, a name must contain:\n")
+             print("- At least 2 letters.")
+             print("- Only letters.")
+             print("- No spaces.\n")
+             print(f"Please enter a valid {name_prompt}.")
+
+     if pat_name == "Exit":
+         main_menu()
+     else:
+         return pat_name
