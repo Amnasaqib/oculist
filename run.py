@@ -234,13 +234,13 @@ def get_time(data):
 
 
              def get_avail_times(data):
-    """
-    Gets return value from get_appts_for_date function for booked times
-    and removes them from the appointment times list to create a list of
-    available times and returns the available times. If the current date
-    is input, past times are removed from available times.
-    """
-    appt_times = ["0800",
+     """
+     Gets return value from get_appts_for_date function for booked times
+     and removes them from the appointment times list to create a list of
+     available times and returns the available times. If the current date
+     is input, past times are removed from available times.
+     """
+     appt_times = ["0800",
                    "0900",
                    "1000",
                    "1100",
@@ -249,9 +249,9 @@ def get_time(data):
                    "1500",
                    "1600"
                    ]
-    unav_times = get_appts_for_date(data, "booked_times")
-    av_times = [time for time in appt_times if time not in unav_times]
-    if data == CURRENT_DATE_FMTED:
+     unav_times = get_appts_for_date(data, "booked_times")
+     av_times = [time for time in appt_times if time not in unav_times]
+     if data == CURRENT_DATE_FMTED:
          current_time = datetime.datetime.now().strftime("%H%M")
          today_av_times = [time for time in av_times if time > current_time]
          return today_av_times
@@ -380,3 +380,30 @@ def book_again_prompt(status):
          collect_details()
     elif re_book_ans == "2":
          main_menu()
+
+def search_name(reason):
+    """
+    Gets return values of get_name function for both name and surname
+    and defines them in a single variable (search_name) as a list
+    to pass to get_appts_for_name function and finally passes the
+    returned records to the display_records function or returns them
+    to the cancelation prompt, depending on argument given.
+    """
+    clear_tmnl()
+    f_name = get_name("f_name")
+    l_name = get_name("l_name")
+    search_nme = [f_name, l_name]
+    name_appts = get_appts_for_name(search_nme)
+
+    name_recs = []
+    for name_appt in name_appts:
+         name_rec = name_appt[0:2]
+         name_recs.append(name_rec)
+
+    name_desc = f"the name {' '.join(search_nme)}"
+    name_heads = ["Date", "Time"]
+
+    if reason == "cancelation":
+         return [search_nme, name_appts, name_recs]
+    else:
+         display_records(name_recs, name_desc, name_heads)
