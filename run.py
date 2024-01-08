@@ -139,7 +139,7 @@ def collect_details():
 
     appt_detail["Date"] = get_date("book")
     appt_detail["Time"] = get_time(appt_detail["Date"])
-     ppt_detail["Name"] = get_name("f_name")
+    ppt_detail["Name"] = get_name("f_name")
     appt_detail["Surname"] = get_name("l_name")
 
     appt_details = list(appt_detail.values())
@@ -201,7 +201,7 @@ def get_time(data):
     time. If only one time is available it prompts the user to continue or
     enter a new date. Requests input until it is valid or returns to menu
     if 'Exit' is input.
-     """
+    """
     clear_tmnl()
     times = get_avail_times(data)
     if len(times) == 1:
@@ -311,7 +311,7 @@ def check_existing_appts(details):
     return existing_appt
 
 
- def confirm_appointment(data):
+def confirm_appointment(data):
     """
     Presents the user with the appointment details entered
     and asks for final confirmation to make the booking
@@ -340,3 +340,15 @@ def check_existing_appts(details):
          clear_tmnl()
          print("Booking terminated.\n")
          book_again_prompt("terminated")
+
+
+def update_appts(data):
+    """
+    Updates the appointments sheet using the data provided.
+    """
+    print("Updating appointments...\n")
+    APPTS.append_row(data, value_input_option='USER_ENTERED')
+    print("Appointment booked successfully!")
+    sort_sheet()
+
+    
