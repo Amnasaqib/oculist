@@ -38,7 +38,7 @@ def main_menu():
      to select in order to navigate the application.
      """
      clear_tmnl()
-     print("Oculist - Main menu\n")
+     print("oculist - Main menu\n")
      print("Please select an option below.\n")
 
      print("(1) Book new appointment.")
@@ -72,7 +72,7 @@ def search_menu():
      Displays options to search by date, by name, or return to the main menu.
      """
      clear_tmnl()
-     print("Oculits - Search Menu\n")
+     print("oculist - Search Menu\n")
      print("What would you like to do?\n")
 
      print("(1) Search appointments by name.")
