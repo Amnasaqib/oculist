@@ -248,7 +248,7 @@ def get_avail_times(data):
                    "1400",
                    "1500",
                    "1600"
-                    ]
+                     ]
      unav_times = get_appts_for_date(data, "booked_times")
      av_times = [time for time in appt_times if time not in unav_times]
      if data == CURRENT_DATE_FMTED:
