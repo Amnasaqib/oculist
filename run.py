@@ -55,22 +55,22 @@ def main_menu():
          else:
              break
 
-     if main_menu_ans == ("1"):
+    if main_menu_ans == ("1"):
          collect_details()
-     elif main_menu_ans == ("2"):
+    elif main_menu_ans == ("2"):
          search_date("today")
-     elif main_menu_ans == ("3"):
+    elif main_menu_ans == ("3"):
          search_menu()
-     elif main_menu_ans == ("4"):
+    elif main_menu_ans == ("4"):
          cancelation_prompt()
-     elif main_menu_ans == ("5"):
+    elif main_menu_ans == ("5"):
          app_info()
 
 
- def search_menu():
-     """
-     Displays options to search by date, by name, or return to the main menu.
-     """
+def search_menu():
+    """
+    Displays options to search by date, by name, or return to the main menu.
+    """
      clear_tmnl()
      print("Oculits - Search Menu\n")
      print("What would you like to do?\n")
@@ -311,4 +311,32 @@ def check_existing_appts(details):
      return existing_appt
 
 
-     
+ def confirm_appointment(data):
+     """
+     Presents the user with the appointment details entered
+     and asks for final confirmation to make the booking
+     or cancel. Input is requested until a valid option
+     is input.
+     """
+     clear_tmnl()
+     appt_headers = ["Date", "Time", "Name", "Surname"]
+     print("Please confirm the following details before booking.\n")
+     print(tabulate([data], headers=appt_headers, tablefmt="fancy_grid"))
+     print("Enter Y to confirm or N to cancel.\n")
+     print("WARNING!")
+     print("Entering N will cancel the appointment and data will be lost.")
+
+     while True:
+         confirmation = input("\n").capitalize()
+         if confirmation not in ("Y", "N"):
+             print("Please input a valid option (Y/N).")
+         else:
+             break
+
+     if confirmation == ("Y"):
+         update_appts(data)
+         book_again_prompt("booked")
+     elif confirmation == ("N"):
+         clear_tmnl()
+         print("Booking terminated.\n")
+         book_again_prompt("terminated")
