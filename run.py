@@ -233,7 +233,7 @@ def get_time(data):
              return time_input
 
 
-             def get_avail_times(data):
+def get_avail_times(data):
      """
      Gets return value from get_appts_for_date function for booked times
      and removes them from the appointment times list to create a list of
