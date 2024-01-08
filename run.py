@@ -423,4 +423,52 @@ def get_appts_for_name(name):
              name_appt = appt + name_appt_row
              name_appts.append(name_appt)
 
-    return name_appts 
+    return name_appts
+    
+
+    def search_date(specification):
+    """
+    Defines search_dte variable using the current date or returned
+    date depending on the argument provided and passes it to
+    get_appts_for_date function to get the relevant records to
+    pass to the display_records function.
+    """
+    clear_tmnl()
+    if specification == "today":
+         search_dte = CURRENT_DATE_FMTED
+         date_desc = "today"
+    elif specification == "search":
+         search_dte = get_date("search")
+         date_desc = f"the date {search_dte}"
+
+    dte_heads = ["Time", "Name", "Surname"]
+    date_appts = get_appts_for_date(search_dte, "bookings")
+
+    date_recs = []
+    for date_appt in date_appts:
+         date_rec = date_appt[1:4]
+         date_recs.append(date_rec)
+
+    display_records(date_recs, date_desc, dte_heads)
+
+
+def get_appts_for_date(data, required_return):
+    """
+    Gets the booked appointments for the date provided and returns
+    the requested data depending on the argument given for the
+    required_return parameter.
+    """
+    date_appts = APPTS.findall(data)
+
+    bookings = []
+    booked_times = []
+    for date_appt in date_appts:
+         booking = APPTS.row_values(date_appt.row)
+         booked_time = booking[1]
+         bookings.append(booking)
+         booked_times.append(booked_time)
+
+    if required_return == "bookings":
+         return bookings
+    elif required_return == "booked_times":
+         return booked_times
