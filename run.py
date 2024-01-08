@@ -71,15 +71,15 @@ def search_menu():
     """
     Displays options to search by date, by name, or return to the main menu.
     """
-     clear_tmnl()
-     print("Oculits - Search Menu\n")
-     print("What would you like to do?\n")
+    clear_tmnl()
+    print("Oculits - Search Menu\n")
+    print("What would you like to do?\n")
 
-     print("(1) Search appointments by name.")
-     print("(2) Search appointments by date.")
-     print("(3) Return to main menu.")
+    print("(1) Search appointments by name.")
+    print("(2) Search appointments by date.")
+    print("(3) Return to main menu.")
 
-     while True:
+    while True:
          search_ans = input("\n")
          if search_ans not in ("1", "2", "3"):
              print("Invalid input.")
@@ -87,83 +87,83 @@ def search_menu():
          else:
              break
 
-     if search_ans == ("1"):
+    if search_ans == ("1"):
          search_name("view")
-     elif search_ans == ("2"):
+    elif search_ans == ("2"):
          search_date("search")
-     elif search_ans == ("3"):
+    elif search_ans == ("3"):
          main_menu()
 
 
 def app_info():
-     """
-     Provides the user with instructions on how to use the app.
-     Once the user has read and is satisfied, they may press enter
-     to return to the main menu.
-     """
-     clear_tmnl()
+    """
+    Provides the user with instructions on how to use the app.
+    Once the user has read and is satisfied, they may press enter
+    to return to the main menu.
+    """
+    clear_tmnl()
 
-     print("To book an appointment:")
-     print("1 - Select option '(1)' in the menu.")
-     print("2 - Enter the details that are requested, one by one.")
-     print("3 - Confirm the details to book or cancel the booking.")
-     print("NB - Enter 'Exit' when entering details to stop/return to menu.\n")
+    print("To book an appointment:")
+    print("1 - Select option '(1)' in the menu.")
+    print("2 - Enter the details that are requested, one by one.")
+    print("3 - Confirm the details to book or cancel the booking.")
+    print("NB - Enter 'Exit' when entering details to stop/return to menu.\n")
 
-     print("To view today's appointments, select option '(2)' in the menu.\n")
+    print("To view today's appointments, select option '(2)' in the menu.\n")
 
-     print("To search for specific appointments:")
-     print("1 - Select option '(3)' in the menu to go to the search menu.")
-     print("2 - Select between options to search for a name or a date.")
-     print("3 - Enter the name/date you wish to search for.")
-     print("4 - View the results of your search.\n")
+    print("To search for specific appointments:")
+    print("1 - Select option '(3)' in the menu to go to the search menu.")
+    print("2 - Select between options to search for a name or a date.")
+    print("3 - Enter the name/date you wish to search for.")
+    print("4 - View the results of your search.\n")
 
-     print("To cancel an appointment:")
-     print("1 - Select option '(4)' in the menu.")
-     print("2 - Enter the name and surname you wish to cancel for, one by one.")
-     print("3 - Provide final confirmation to cancel the appointment.")
-     print("NB - Enter 'Exit' when entering details to stop/return to menu.\n")
+    print("To cancel an appointment:")
+    print("1 - Select option '(4)' in the menu.")
+    print("2 - Enter the name and surname you wish to cancel for, one by one.")
+    print("3 - Provide final confirmation to cancel the appointment.")
+    print("NB - Enter 'Exit' when entering details to stop/return to menu.\n")
 
-     input("Press enter to return to menu\n")
-     main_menu()
+    input("Press enter to return to menu\n")
+    main_menu()
 
 
 def collect_details():
+    """
+    Collects the patient's details from other functions
+    and adds them to a list that can be appended to the
+    appointments sheet after being checked and confirmed.
      """
-     Collects the patient's details from other functions
-     and adds them to a list that can be appended to the
-     appointments sheet after being checked and confirmed.
-     """
-     clear_tmnl()
-     appt_categories = APPTS.row_values(1)
-     appt_detail = dict.fromkeys(appt_categories)
+    clear_tmnl()
+    appt_categories = APPTS.row_values(1)
+    appt_detail = dict.fromkeys(appt_categories)
 
-     appt_detail["Date"] = get_date("book")
-     appt_detail["Time"] = get_time(appt_detail["Date"])
-     appt_detail["Name"] = get_name("f_name")
-     appt_detail["Surname"] = get_name("l_name")
+    appt_detail["Date"] = get_date("book")
+    appt_detail["Time"] = get_time(appt_detail["Date"])
+     ppt_detail["Name"] = get_name("f_name")
+    appt_detail["Surname"] = get_name("l_name")
 
-     appt_details = list(appt_detail.values())
-     existing_appt_check = check_existing_appts(appt_details)
-     if existing_appt_check:
+    appt_details = list(appt_detail.values())
+    existing_appt_check = check_existing_appts(appt_details)
+    if existing_appt_check:
          clear_tmnl()
          print("A booking for this patient already exists on this date.")
          print("You can only book one appointment per day per patient.\n")
          book_again_prompt("terminated")
-     else:
+    else:
          confirm_appointment(appt_details)
 
 
 def get_date(reason):
-     """
-     Gets the date input from the user and validates that it is in the correct
-     format, and depending on the argument provided, is not a past date and,
-     is available for booking. Requests input until it is valid or returns
-     to menu if 'Exit' is input.
-     """
-     clear_tmnl()
-     print("Please enter an appointment date in the format of dd/mm/yyyy.")
+    """
+    Gets the date input from the user and validates that it is in the correct
+    format, and depending on the argument provided, is not a past date and,
+    is available for booking. Requests input until it is valid or returns
+    to menu if 'Exit' is input.
+    """
+    clear_tmnl()
+    print("Please enter an appointment date in the format of dd/mm/yyyy.")
 
-     while True:
+    while True:
          date_input = input("\n").capitalize()
          if date_input == "Exit":
              main_menu()
@@ -192,19 +192,19 @@ def get_date(reason):
                  elif reason == "search":
                      break
 
-     return date_input
+    return date_input
 
 
 def get_time(data):
+    """
+    Provides list options of available times and requests input for desired
+    time. If only one time is available it prompts the user to continue or
+    enter a new date. Requests input until it is valid or returns to menu
+    if 'Exit' is input.
      """
-     Provides list options of available times and requests input for desired
-     time. If only one time is available it prompts the user to continue or
-     enter a new date. Requests input until it is valid or returns to menu
-     if 'Exit' is input.
-     """
-     clear_tmnl()
-     times = get_avail_times(data)
-     if len(times) == 1:
+    clear_tmnl()
+    times = get_avail_times(data)
+    if len(times) == 1:
          print(f"The only available time on {data} is {times[0]}.\n")
          print("Press 1 to continue with this time or 2 to enter a new date.")
          while True:
@@ -220,7 +220,7 @@ def get_time(data):
          else:
              collect_details()
 
-     else:
+    else:
          print(f"Below is a list of available times for {data}.\n")
          time_input = pyip.inputMenu(times,
                                      prompt="Select a time from the list.\n",
@@ -234,13 +234,13 @@ def get_time(data):
 
 
              def get_avail_times(data):
-     """
-     Gets return value from get_appts_for_date function for booked times
-     and removes them from the appointment times list to create a list of
-     available times and returns the available times. If the current date
-     is input, past times are removed from available times.
-     """
-     appt_times = ["0800",
+    """
+    Gets return value from get_appts_for_date function for booked times
+    and removes them from the appointment times list to create a list of
+    available times and returns the available times. If the current date
+    is input, past times are removed from available times.
+    """
+    appt_times = ["0800",
                    "0900",
                    "1000",
                    "1100",
@@ -249,9 +249,9 @@ def get_time(data):
                    "1500",
                    "1600"
                    ]
-     unav_times = get_appts_for_date(data, "booked_times")
-     av_times = [time for time in appt_times if time not in unav_times]
-     if data == CURRENT_DATE_FMTED:
+    unav_times = get_appts_for_date(data, "booked_times")
+    av_times = [time for time in appt_times if time not in unav_times]
+    if data == CURRENT_DATE_FMTED:
          current_time = datetime.datetime.now().strftime("%H%M")
          today_av_times = [time for time in av_times if time > current_time]
          return today_av_times
@@ -260,21 +260,21 @@ def get_time(data):
 
     
 def get_name(name_part):
-     """
-     Gets the name input from the user and validates that it contains
-     only letters, no spaces, and is at least 2 letters in length.
-     If the user inputs 'Exit', it returns them to the main menu.
-     Input is requested until it is valid.
-     """
-     clear_tmnl()
-     if name_part == ("f_name"):
+    """
+    Gets the name input from the user and validates that it contains
+    only letters, no spaces, and is at least 2 letters in length.
+    If the user inputs 'Exit', it returns them to the main menu.
+    Input is requested until it is valid.
+    """
+    clear_tmnl()
+    if name_part == ("f_name"):
          name_prompt = "first name"
-     elif name_part == ("l_name"):
+    elif name_part == ("l_name"):
          name_prompt = "surname"
 
-     print(f"Please enter the patient's {name_prompt}.")
+    print(f"Please enter the patient's {name_prompt}.")
 
-     while True:
+    while True:
          pat_name = input("\n").capitalize()
          if pat_name.isalpha() and len(pat_name) > 1:
              break
@@ -285,58 +285,58 @@ def get_name(name_part):
              print("- No spaces.\n")
              print(f"Please enter a valid {name_prompt}.")
 
-     if pat_name == "Exit":
+    if pat_name == "Exit":
          main_menu()
-     else:
+    else:
          return pat_name
 
 
 def check_existing_appts(details):
+    """
+    Checks the appointment records for the name and date provided
+    and if a booking already exists for the details, returns true,
+    otherwise, it returns false.
      """
-     Checks the appointment records for the name and date provided
-     and if a booking already exists for the details, returns true,
-     otherwise, it returns false.
-     """
-     detail_date = details[0]
-     detail_name = details[2:4]
-     date_bookings = get_appts_for_date(detail_date, "bookings")
+    detail_date = details[0]
+    detail_name = details[2:4]
+    date_bookings = get_appts_for_date(detail_date, "bookings")
 
     
-     existing_appt = None
-     for booking in date_bookings:
+    existing_appt = None
+    for booking in date_bookings:
          for i in range(len(booking) - len(detail_name) + 1):
              if detail_name == booking[i:i+len(detail_name)]:
                  existing_appt = True
 
-     return existing_appt
+    return existing_appt
 
 
  def confirm_appointment(data):
-     """
-     Presents the user with the appointment details entered
-     and asks for final confirmation to make the booking
-     or cancel. Input is requested until a valid option
-     is input.
-     """
-     clear_tmnl()
-     appt_headers = ["Date", "Time", "Name", "Surname"]
-     print("Please confirm the following details before booking.\n")
-     print(tabulate([data], headers=appt_headers, tablefmt="fancy_grid"))
-     print("Enter Y to confirm or N to cancel.\n")
-     print("WARNING!")
-     print("Entering N will cancel the appointment and data will be lost.")
+    """
+    Presents the user with the appointment details entered
+    and asks for final confirmation to make the booking
+    or cancel. Input is requested until a valid option
+    is input.
+    """
+    clear_tmnl()
+    appt_headers = ["Date", "Time", "Name", "Surname"]
+    print("Please confirm the following details before booking.\n")
+    print(tabulate([data], headers=appt_headers, tablefmt="fancy_grid"))
+    print("Enter Y to confirm or N to cancel.\n")
+    print("WARNING!")
+    print("Entering N will cancel the appointment and data will be lost.")
 
-     while True:
+    while True:
          confirmation = input("\n").capitalize()
          if confirmation not in ("Y", "N"):
              print("Please input a valid option (Y/N).")
          else:
              break
 
-     if confirmation == ("Y"):
+    if confirmation == ("Y"):
          update_appts(data)
          book_again_prompt("booked")
-     elif confirmation == ("N"):
+    elif confirmation == ("N"):
          clear_tmnl()
          print("Booking terminated.\n")
          book_again_prompt("terminated")
