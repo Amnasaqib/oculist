@@ -1,5 +1,5 @@
 """
- Main file to run the application.
+Main file to run the application.
 """
 
 # Import libraries/packages.
