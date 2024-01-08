@@ -290,7 +290,6 @@ def get_name(name_part):
      else:
          return pat_name
 
-
 def check_existing_appts(details):
      """
      Checks the appointment records for the name and date provided
